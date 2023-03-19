@@ -1,9 +1,12 @@
-const url = "https://jsonplaceholder.typicode.com/posts?_page=1&_limit=20";
+let postPage = 1;
+let postLimit = 20;
 const loadingElement = document.querySelector("#loading");
 const postsContainer = document.querySelector("#posts-container"); 
+const buttonLoading = document.querySelector("#button-loading");
 
 async function carregarPosts() {
-    const response = await fetch(url)
+    const url = `https://jsonplaceholder.typicode.com/posts?_page=${postPage}&_limit=${postLimit}`;
+    const response = await fetch(url);
     const posts = await response.json();
 
     loadingElement.style.display = "none";
@@ -21,6 +24,17 @@ async function carregarPosts() {
 
         postsContainer.appendChild(div);
     })
+    if(temMaisPosts(posts)) {
+        buttonLoading.style.display = "block";
+        postPage++;        
+    } else {
+        buttonLoading.style.display = "none";
+    }
 
 } 
+
+function temMaisPosts(posts) {
+    return posts.length === postLimit;
+}
+
 carregarPosts();

@@ -23,4 +23,7 @@ a:hover,
 input[type="submit"] {
     opacity: 1;
 
+}button-loading
+#button-loading {
+    display: "none";
 }
